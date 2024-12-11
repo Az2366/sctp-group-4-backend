@@ -59,7 +59,6 @@ public class Customer {
 
     @Column(name = "membership_type")
     @Enumerated(EnumType.STRING) // Persist the enum as its name (e.g., "GOLD", "SILVER")
-
     private Membership membershipType;
 
     @OneToMany(mappedBy = "customer")

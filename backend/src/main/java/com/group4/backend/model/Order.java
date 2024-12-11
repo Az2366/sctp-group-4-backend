@@ -5,6 +5,8 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,6 +46,7 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems; 
 
+    @Enumerated(EnumType.STRING) // Persist the enum as its name
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 }
