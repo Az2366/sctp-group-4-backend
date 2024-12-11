@@ -92,19 +92,10 @@ To access the h2 console, navigate to:
 
 ## **API Endpoints**
 
-### Customer API
-| Method | Endpoint               | Description            |
-|--------|------------------------|------------------------|
-| GET    | `/api/customers`       | Fetch all customers    |
-| POST   | `/api/customers`       | Create a new customer  |
-| PUT    | `/api/customers/{id}`  | Update a customer      |
-| DELETE | `/api/customers/{id}`  | Delete a customer      |
-
-### Order API
-| Method | Endpoint               | Description            |
-|--------|------------------------|------------------------|
-| GET    | `/api/orders`          | Fetch all orders       |
-| POST   | `/api/orders`          | Place a new order      |
+1. **Refer to Swagger UI for API Documentation**
+   ```bash
+   http://localhost:8080/swagger-ui/index.html
+   ```
 
 ---
 
