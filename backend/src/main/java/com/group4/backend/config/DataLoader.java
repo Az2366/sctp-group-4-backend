@@ -6,17 +6,23 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.group4.backend.model.Customer;
+import com.group4.backend.model.Item;
 import com.group4.backend.model.Membership;
 import com.group4.backend.repository.CustomerRepository;
+import com.group4.backend.repository.ItemRepository;
 
 import jakarta.annotation.PostConstruct;
 
 @Component
 public class DataLoader {
     private final CustomerRepository customerRepository;
+    private final ItemRepository itemRepository;
 
-    public DataLoader(CustomerRepository customerRepository) {
+    public DataLoader(
+            CustomerRepository customerRepository,
+            ItemRepository itemRepository) {
         this.customerRepository = customerRepository;
+        this.itemRepository = itemRepository;
     }
 
     @PostConstruct
@@ -58,5 +64,23 @@ public class DataLoader {
 
         List<Customer> customers = Arrays.asList(customer1, customer2, customer3);
         customerRepository.saveAll(customers);
+
+        // Create sample items
+        Item item1 = Item.builder()
+                .itemName("Laptop")
+                .itemDescription("The best in class laptop")
+                .price(1500d)
+                .build();
+        itemRepository.save(item1);
+
+        Item item2 = Item.builder()
+                .itemName("Mouse")
+                .itemDescription("The best in class mouse")
+                .price(14.99d)
+                .build();
+
+        List<Item> items = Arrays.asList(item1, item2);
+        itemRepository.saveAll(items);
+
     }
 }
