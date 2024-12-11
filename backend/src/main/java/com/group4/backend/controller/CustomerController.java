@@ -8,59 +8,75 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group4.backend.model.Customer;
 import com.group4.backend.service.CustomerService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @PostMapping("/register")
+    @Operation(summary = "Register a new customer", description = "Register a new customer based on the provided details")
     public ResponseEntity<Customer> register(@Valid @RequestBody Customer customer) {
         return new ResponseEntity<>(customerService.createCustomer(customer), HttpStatus.CREATED);
     }
 
-    // Get Customer By ID
     @GetMapping("/{id}")
+    @Operation(summary = "Get customer by ID", description = "Fetches customer details by their unique ID")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
-        return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
+        Customer customer = customerService.getCustomerById(id);
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if customer not found
+        }
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    // Update Customer
-    @PostMapping("/update")
+    @PutMapping("/update")
+    @Operation(summary = "Update an existing customer", description = "Updates the customer details based on the provided ID and data")
     public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.updateCustomer(customer), HttpStatus.OK);
+        Customer updatedCustomer = customerService.updateCustomer(customer);
+        if (updatedCustomer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if customer not found
+        }
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a customer", description = "Deletes the customer based on their unique ID")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomer(id);
+        boolean isDeleted = customerService.deleteCustomer(id);
+        if (!isDeleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if customer not found
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // Get All Customers
     @GetMapping("/all")
+    @Operation(summary = "Get all customers", description = "Fetches all customers from the database")
     public ResponseEntity<List<Customer>> getAllCustomers() {
-        return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
+        List<Customer> customers = customerService.getAllCustomers();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    // Get All Customers Without Orders
     @GetMapping("/withoutOrders")
+    @Operation(summary = "Get customers without orders", description = "Fetches all customers who do not have any orders")
     public ResponseEntity<List<Customer>> getAllCustomersWithoutOrders() {
-        return new ResponseEntity<>(customerService.getAllCustomersWithoutOrders(), HttpStatus.OK);
+        List<Customer> customers = customerService.getAllCustomersWithoutOrders();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
 }
