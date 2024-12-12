@@ -57,7 +57,7 @@ public class CustomerController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a customer", description = "Deletes the customer based on their unique ID")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
         boolean isDeleted = customerService.deleteCustomer(id);
         if (!isDeleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if customer not found

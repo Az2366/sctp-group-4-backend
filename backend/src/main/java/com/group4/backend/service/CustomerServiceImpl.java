@@ -8,6 +8,8 @@ import com.group4.backend.exception.CustomerNotFoundException;
 import com.group4.backend.model.Customer;
 import com.group4.backend.repository.CustomerRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
@@ -27,6 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public Customer updateCustomer(Customer customer) {
         if (customer.getCustomerId() == null) {
             throw new IllegalArgumentException("Customer ID must not be null");
@@ -44,8 +47,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(Long customerId) {
-        customerRepository.deleteById(customerId);
+    @Transactional
+    public boolean deleteCustomer(Long customerId) {
+        if (customerRepository.existsById(customerId)) {
+            customerRepository.deleteById(customerId);
+            return true; // Successfully deleted
+        }
+        return false; // Customer not found
     }
 
     @Override

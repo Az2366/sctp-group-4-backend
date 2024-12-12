@@ -1,9 +1,6 @@
 package com.group4.backend.exception;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,8 +10,12 @@ import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler({ CustomerNotFoundException.class })
-    public ResponseEntity<ErrorResponse> handleCustomerNotFoundException(CustomerNotFoundException e) {
+    @ExceptionHandler({
+            CustomerNotFoundException.class,
+            ItemNotFoundException.class,
+            OrderNotFoundException.class,
+    })
+    public ResponseEntity<ErrorResponse> handleNotFoundException(RuntimeException e) {
         ErrorResponse errorResponse = new ErrorResponse(e.getMessage(), LocalDateTime.now());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
