@@ -46,10 +46,10 @@ public class ItemController {
 
     @PutMapping("/update")
     @Operation(summary = "Update an existing item", description = "Updates the item details based on the provided ID and data")
-    public ResponseEntity<Item> updateCustomer(@Valid @RequestBody Item item) {
+    public ResponseEntity<Item> updateItem(@Valid @RequestBody Item item) {
         Item updatedItem = itemService.updateItem(item);
         if (updatedItem == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if customer not found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if item not found
         }
         return new ResponseEntity<>(updatedItem, HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class ItemController {
     public ResponseEntity<Item> deleteItem(@PathVariable Long id) {
         boolean isDeleted = itemService.deleteItem(id);
         if (!isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if customer not found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle 404 if item not found
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -67,8 +67,8 @@ public class ItemController {
     @GetMapping("/all")
     @Operation(summary = "Get all items", description = "Fetches all items from the database")
     public ResponseEntity<List<Item>> getAllItems() {
-        List<Item> customers = itemService.getAllItems();
-        return new ResponseEntity<>(customers, HttpStatus.OK);
+        List<Item> items = itemService.getAllItems();
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
     @GetMapping("/name/{name}")

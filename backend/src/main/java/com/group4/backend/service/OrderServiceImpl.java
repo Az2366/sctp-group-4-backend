@@ -1,5 +1,7 @@
 package com.group4.backend.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.group4.backend.exception.OrderNotFoundException;
@@ -7,7 +9,7 @@ import com.group4.backend.model.Order;
 import com.group4.backend.repository.OrderRepository;
 
 @Service
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
@@ -23,11 +25,12 @@ public class OrderServiceImpl {
         return orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
     }
 
-    public Iterable<Order> getAllOrders() {
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    public Order updateOrder(Long orderId, Order updatedOrder) {
+    public Order updateOrder(Order updatedOrder) {
+        Long orderId = updatedOrder.getOrderId();
         return orderRepository.findById(orderId).map(order -> {
             order.setOrderStatus(updatedOrder.getOrderStatus());
             order.setOrderDateTime(updatedOrder.getOrderDateTime());

@@ -11,7 +11,7 @@ public interface OrderService {
 
     List<Order> getAllOrders();
 
-    Order updateOrder(Long orderId, Order updatedOrder);
+    Order updateOrder(Order updatedOrder);
 
     boolean deleteOrder(Long orderId);
 }
