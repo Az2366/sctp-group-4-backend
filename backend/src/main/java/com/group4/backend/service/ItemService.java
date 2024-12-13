@@ -15,8 +15,11 @@ public interface ItemService {
     List<Item> getAllItems();
 
     // Update an existing item
-    Item updateItem(Long id, Item updatedItem);
+    Item updateItem(Item updatedItem);
 
     // Delete an item by its ID
     boolean deleteItem(Long id);
+
+    // get item by name
+    Item getItemByName(String name);
 }

@@ -1,5 +1,7 @@
 package com.group4.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,10 +35,12 @@ public class OrderItem {
     @Column(name = "quantity_ordered")
     private int quantityOrdered;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;

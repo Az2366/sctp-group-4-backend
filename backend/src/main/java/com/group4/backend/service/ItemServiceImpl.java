@@ -1,7 +1,6 @@
 package com.group4.backend.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ import com.group4.backend.repository.ItemRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ItemServiceImpl {
+public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
 
     public ItemServiceImpl(ItemRepository itemRepository) {
@@ -37,13 +36,14 @@ public class ItemServiceImpl {
 
     // Update an existing item
     @Transactional
-    public Item updateItem(Long id, Item updatedItem) {
-        return itemRepository.findById(id).map(item -> {
+    public Item updateItem(Item updatedItem) {
+        Long itemId = updatedItem.getItemId();
+        return itemRepository.findById(itemId).map(item -> {
             item.setItemName(updatedItem.getItemName());
             item.setItemDescription(updatedItem.getItemDescription());
             item.setPrice(updatedItem.getPrice());
             return itemRepository.save(item);
-        }).orElseThrow(() -> new ItemNotFoundException(id));
+        }).orElseThrow(() -> new ItemNotFoundException(itemId));
     }
 
     // Delete an item by its ID
@@ -54,5 +54,10 @@ public class ItemServiceImpl {
             return true; // Successfully deleted
         }
         return false;
+    }
+
+    // Get an item by its name
+    public Item getItemByName(String name) {
+        return itemRepository.findByItemName(name);
     }
 }
