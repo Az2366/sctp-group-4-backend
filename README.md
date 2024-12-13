@@ -1,7 +1,7 @@
 # **E-Commerce Backend**
 
 ![License](https://img.shields.io/badge/license-MIT-green)  
-![Version](https://img.shields.io/badge/version-1.0.0-blue)  
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
 ## **Table of Contents**
 
@@ -10,6 +10,7 @@
 - [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Entity-Relationship Diagram](#database-schema)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [Technologies Used](#technologies-used)
@@ -59,24 +60,38 @@ Before installing the project, ensure you have the following:
    ```bash
    git clone https://github.com/<your-username>/<your-repo>.git
    cd <your-repo>
-2. **Build the Project
+   ```
+2. \*\*Build the Project
    Run the following command to build the project and resolve dependencies:
    ```bash
    mvn clean install
-3. **Build the Project
+   ```
+3. \*\*Build the Project
    Use Maven to start the application:
    ```bash
    mvn spring-boot:run
+   ```
 
 ---
 
 ## **Configuration**
 
 ### Database
+
 To access the h2 console, navigate to:
-   ```bash
-   http://localhost:8080/h2
-   ```
+
+```bash
+http://localhost:8080/h2
+```
+
+---
+
+## **Database Schema**
+
+### Entity Relationship Diagram
+
+The application is modeled using the following Entity-Relationship diagram:
+![My local image](./backend/src/main/resources/static/images/entity-relationship-diagram.png)
 
 ---
 
@@ -84,7 +99,7 @@ To access the h2 console, navigate to:
 
 1. **Run DataLoader**  
    The application preloads data (customers and items) using the DataLoader component.
-2. **Access API
+2. \*\*Access API
    Use tools like Postman or cURL to interact with the API. See the API Endpoints section
    for details.
 
@@ -118,6 +133,7 @@ To access the h2 console, navigate to:
    Execute the following command to run tests:
    ```bash
    mvn test
+   ```
 2. **Generate Test Reports**  
    Maven generates test reports in the target/surefire-reports directory.
 
@@ -131,7 +147,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## **Acknowledgements**
 
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot)  
-- [H2 Database Documentation](https://www.h2database.com/)  
-- [Maven Documentation](https://maven.apache.org/)  
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
+- [H2 Database Documentation](https://www.h2database.com/)
+- [Maven Documentation](https://maven.apache.org/)
 - Special thanks to all contributors and developers who made this project possible.
