@@ -51,7 +51,7 @@ public class CustomerControllerIntegrationTest {
                                 .andExpect(jsonPath("$.phoneNumber").value("12345678"))
                                 .andExpect(jsonPath("$.homeAddress").value("Somewhere in New York"))
                                 .andExpect(jsonPath("$.dateOfBirth").value("1975/02/11"))
-                                .andExpect(jsonPath("$.active").value(true))
+                                .andExpect(jsonPath("$.isActive").value(true))
                                 .andExpect(jsonPath("$.membershipType").value(Membership.GOLD.toString()));
 
         }
