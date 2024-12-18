@@ -18,10 +18,12 @@ import com.group4.backend.model.Item;
 import com.group4.backend.service.ItemService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/items")
+@Tag(name = "Items", description = "This is a custom description for the item controller")
 public class ItemController {
     
     private final ItemService itemService;

@@ -17,10 +17,12 @@ import com.group4.backend.model.Order;
 import com.group4.backend.service.OrderService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/orders")
+@Tag(name = "Orders", description = "This is a custom description for the order controller")
 public class OrderController {
 
     private final OrderService orderService;
