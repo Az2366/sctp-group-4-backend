@@ -30,6 +30,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(httpRequest -> {
                     httpRequest.requestMatchers("/register", "/auth")
                             .permitAll();
+                    httpRequest.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+                            .permitAll();
                     httpRequest.requestMatchers(HttpMethod.POST)
                             .hasAnyAuthority("ADMIN")
                             .anyRequest()

@@ -22,7 +22,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/customers")
-@Tag(name = "Customers", description = "This is a custom description for the customer controller")
+@Tag(name = "Customers", description = "These are all the endpoints related to customer controller")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -31,7 +31,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("")
     @Operation(summary = "Register a new customer", description = "Register a new customer based on the provided details")
     public ResponseEntity<Customer> register(@Valid @RequestBody Customer customer) {
         return new ResponseEntity<>(customerService.createCustomer(customer), HttpStatus.CREATED);
