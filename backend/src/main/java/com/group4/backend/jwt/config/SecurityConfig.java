@@ -20,26 +20,31 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final AuthenticationProvider authenticationProvider;
-    private final JwtAuthFilter jwtAuthFilter;
+        private final AuthenticationProvider authenticationProvider;
+        private final JwtAuthFilter jwtAuthFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(httpRequest -> {
-                    httpRequest.requestMatchers("/register", "/auth")
-                            .permitAll();
-                    httpRequest.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
-                            .permitAll();
-                    httpRequest.requestMatchers(HttpMethod.POST)
-                            .hasAnyAuthority("ADMIN")
-                            .anyRequest()
-                            .authenticated();
-                }).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .authenticationProvider(authenticationProvider);
-        return http.build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http.csrf(AbstractHttpConfigurer::disable)
+                                .cors(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(httpRequest -> {
+                                        httpRequest.requestMatchers("/customers/register")
+                                                        .permitAll();
+                                        httpRequest.requestMatchers("/register", "/auth")
+                                                        .permitAll();
+                                        httpRequest.requestMatchers("/v3/api-docs/**", "/swagger-ui/**",
+                                                        "/swagger-ui.html")
+                                                        .permitAll();
+                                        httpRequest.requestMatchers(HttpMethod.POST)
+                                                        .hasAnyAuthority("ADMIN")
+                                                        .anyRequest()
+                                                        .authenticated();
+                                })
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authenticationProvider(authenticationProvider)
+                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                                .authenticationProvider(authenticationProvider);
+                return http.build();
+        }
 }
